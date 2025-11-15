@@ -2,128 +2,787 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>reichel.digital</title>
+  <title>SY Viking – Logbuch einer Motiva 49 Ketch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SY Viking – Motiva 49 Ketch aus Stahl. Persönliches Logbuch, Reiseeindrücke und Live-Position der Yacht." />
+
   <style>
     :root {
-      --bg: #f4f1e7;
-      --card-bg: #ffffff;
-      --accent: #0f172a;
-      --accent-soft: rgba(15, 23, 42, 0.08);
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --radius-xl: 24px;
-      --shadow-soft: 0 20px 60px rgba(15, 23, 42, 0.18);
+      --primary: #b31324;
+      --primary-light: #f5e9eb;
+      --dark: #1f2933;
+      --text: #364152;
+      --bg: #f7fafc;
+      --white: #ffffff;
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.12);
+      --radius-xl: 18px;
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --max-width: 1100px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #e5e7eb 0, #f4f1e7 40%, #e5dfcf 100%);
-      min-height: 100vh;
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.6rem 1.25rem;
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 32px 16px;
-      color: var(--text-main);
+      justify-content: space-between;
+      gap: 1rem;
     }
 
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(209, 213, 219, 0.7);
-      padding: 32px 32px 28px;
-      max-width: 520px;
-      width: 100%;
-      text-align: center;
-      position: relative;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
       overflow: hidden;
+      border: 2px solid var(--primary);
     }
 
-    .card::before {
+    .brand-title {
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      color: var(--dark);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.3rem;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      font-weight: 500;
+      position: relative;
+      padding-block: 0.2rem;
+    }
+
+    .nav-links a::after {
       content: "";
       position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at top, rgba(15, 23, 42, 0.06), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.04), transparent 55%);
-      opacity: 0.9;
-      z-index: 0;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.2s ease-out;
     }
 
-    .inner {
-      position: relative;
-      z-index: 1;
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      background: var(--primary);
+      color: var(--white);
+      font-weight: 600;
+      box-shadow: 0 8px 18px rgba(179, 19, 36, 0.3);
+      border: none;
+      cursor: pointer;
     }
 
-    .logo {
-      width: 160px;
-      max-width: 50%;
-      margin-bottom: 20px;
+    .nav-cta:hover { filter: brightness(1.05); }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.3rem;
+    }
+
+    .nav-toggle span {
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+      width: 22px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--dark);
+      margin: 4px 0;
+      transition: transform 0.2s ease, opacity 0.2s ease;
     }
 
-    h1 {
-      font-size: 1.9rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      color: var(--accent);
+    .hero {
+      max-width: var(--max-width);
+      margin: 1.5rem auto 2.5rem;
+      padding: 0 1.25rem;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 4fr);
+      gap: 2rem;
+      align-items: center;
     }
 
-    .tagline {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 20px;
+    .hero-copy h1 {
+      font-size: clamp(2.2rem, 3vw + 1.4rem, 3rem);
+      margin: 0 0 0.75rem;
+      color: var(--dark);
+    }
+
+    .hero-copy h1 span { color: var(--primary); }
+
+    .hero-copy p {
+      font-size: 1.02rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.4rem;
     }
 
     .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.78rem;
-      padding: 6px 12px;
+      padding: 0.35rem 0.9rem;
       border-radius: 999px;
-      border: 1px solid rgba(15, 23, 42, 0.16);
-      background: var(--accent-soft);
-      color: var(--accent);
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
     }
 
-    .dot {
-      width: 7px;
-      height: 7px;
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 999px;
-      background: var(--accent);
+      border: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid rgba(179, 19, 36, 0.4);
+    }
+
+    .hero-media {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow-soft);
+      background: #000;
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-tag {
+      position: absolute;
+      left: 1rem;
+      bottom: 1rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #f9fafb;
+      font-size: 0.8rem;
+      display: inline-flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .hero-tag span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.35);
+    }
+
+    section {
+      max-width: var(--max-width);
+      margin: 0 auto 2.5rem;
+      padding: 0 1.25rem;
+    }
+
+    section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+      color: var(--dark);
+    }
+
+    section p.lead {
+      margin-top: 0;
+      max-width: 620px;
+      font-size: 1.02rem;
+    }
+
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .fact-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.1rem;
+      box-shadow: 0 5px 16px rgba(15, 23, 42, 0.08);
+    }
+
+    .fact-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9aa5b1;
+      margin-bottom: 0.3rem;
+    }
+
+    .fact-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .fact-note {
+      font-size: 0.8rem;
+      color: #7b8794;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: flex-start;
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1.3rem 1.4rem;
+      box-shadow: 0 5px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 0.6rem;
+      font-size: 1.15rem;
+      color: var(--dark);
+    }
+
+    .card ul {
+      padding-left: 1.1rem;
+      margin: 0.4rem 0 0;
+      list-style: disc;
+    }
+
+    .card li + li { margin-top: 0.25rem; }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.6rem 1.2rem;
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .spec-label {
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .tracking-wrapper {
+      margin-top: 1.3rem;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      background: #0b1120;
+    }
+
+    .tracking-wrapper iframe {
+      border: none;
+      width: 100%;
+      min-height: 420px;
+    }
+
+    .tracking-note {
+      font-size: 0.85rem;
+      color: #cbd2e1;
+      padding: 0.6rem 0.9rem;
+      background: #020617;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-top: 1.3rem;
+    }
+
+    .gallery-grid figure {
+      margin: 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+      background: #020617;
+      box-shadow: 0 5px 16px rgba(15, 23, 42, 0.12);
+    }
+
+    .gallery-grid img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease-out, opacity 0.35s ease-out;
+    }
+
+    .gallery-grid figure:hover img {
+      transform: scale(1.04);
+      opacity: 0.93;
+    }
+
+    .gallery-grid figcaption {
+      position: absolute;
+      left: 0.6rem;
+      bottom: 0.55rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.72);
+      color: #e5e7eb;
+      font-size: 0.75rem;
+    }
+
+    footer {
+      border-top: 1px solid #e5e7eb;
+      background: #f9fafb;
+      padding: 1.1rem 1.25rem 1.4rem;
+      margin-top: 2.5rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-size: 0.85rem;
+      color: #9aa5b1;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-media { order: -1; }
+      .facts-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav { padding-inline: 1rem; }
+
+      .nav-toggle { display: block; }
+
+      .nav-links {
+        position: absolute;
+        inset-inline: 0;
+        top: 56px;
+        flex-direction: column;
+        padding: 0.6rem 1.25rem 1rem;
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 10px 26px rgba(15, 23, 42, 0.16);
+        transform-origin: top;
+        transform: scaleY(0);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.16s ease-out, opacity 0.16s ease-out;
+      }
+
+      .nav-links.open {
+        transform: scaleY(1);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav-cta {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.2rem;
+      }
+
+      .hero { margin-top: 1rem; }
+      section { margin-bottom: 2rem; }
+
+      .facts-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
   </style>
 </head>
 <body>
-  <main class="card" aria-labelledby="title">
-    <div class="inner">
-      <!-- Logo-Datei: jjr-logo.png im selben Ordner wie index.html -->
-      <img src="jjr-logo.png" alt="JJR Logo" class="logo" />
 
-      <h1 id="title">Domain jjreichel.com</h1>
-      <p class="tagline">
-        Joachim&nbsp;J.&nbsp;Reichel
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="brand-logo">
+        <img src="images/8fd7d9c3-81ac-4aea-b6ba-86893ab21ffe.jpg" alt="Skipper an Bord der SY Viking" />
+      </div>
+      <div class="brand-title">SY Viking</div>
+    </div>
+
+    <button class="nav-toggle" aria-label="Navigation öffnen oder schließen">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav-links" aria-label="Hauptnavigation">
+      <a href="#viking">Über Viking</a>
+      <a href="#daten">Daten</a>
+      <a href="#komfort">Unter Deck</a>
+      <a href="#tracking">Position</a>
+      <a href="#galerie">Galerie</a>
+      <button class="nav-cta" onclick="document.getElementById('tracking').scrollIntoView({behavior:'smooth'})">
+        Live-Tracking
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="viking">
+    <div class="hero-copy">
+      <div class="pill">Motiva 49 • Stahlketch</div>
+      <h1><span>Viking</span> – unser schwimmendes Zuhause</h1>
+      <p>
+        Diese Seite ist unser kleines Logbuch für Familie, Freunde
+        und alle, die Stahlboote lieben. <strong>Viking</strong> ist eine Motiva 49 Ketch,
+        Baujahr 1997, mit der wir zwischen Häfen, Jahreszeiten und Geschichten
+        hin- und herpendeln. Manchmal gemütlich, manchmal hart am Wind,
+        aber immer mit einem sicheren Gefühl unter den Füßen.
       </p>
 
-      <div class="pill">
-        <span class="dot"></span>
-        <span>online presence</span>
+      <p>
+        Gebaut aus Stahl nach Eisklasse&nbsp;C, mit Teakdeck und einem Innenraum,
+        der eher an eine Wohnung als an ein Fahrzeug erinnert. Viele Seemeilen im Kielwasser
+        – und noch genug Träume für neue Routen.
+      </p>
+
+      <div class="hero-meta">
+        <span class="pill">Stahlrumpf Eisklasse&nbsp;C</span>
+        <span class="pill">4&nbsp;Doppelkabinen</span>
+        <span class="pill">208&nbsp;PS Caterpillar</span>
+        <span class="pill">Einhand segelbar</span>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#daten" class="btn btn-primary">Zur Technik</a>
+        <a href="#tracking" class="btn btn-outline">Aktuelle Position ansehen</a>
       </div>
     </div>
-  </main>
+
+    <div class="hero-media">
+      <img src="images/IMG_2271.jpeg" alt="Viking unter Segeln bei Sonnenuntergang" />
+      <div class="hero-tag">
+        <span class="dot"></span>
+        <span>Ein weiterer Abend auf See</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY FACTS -->
+  <section aria-labelledby="facts-heading">
+    <h2 id="facts-heading">Eckdaten der Viking</h2>
+    <p class="lead">
+      Wer Zahlen mag, bekommt sie hier. Wer lieber nur die Bilder anschaut,
+      darf direkt weiter zur Galerie scrollen.
+    </p>
+
+    <div class="facts-grid">
+      <div class="fact-card">
+        <div class="fact-label">Länge über alles</div>
+        <div class="fact-value">16,10&nbsp;m</div>
+        <div class="fact-note">Motiva 49 Ketch</div>
+      </div>
+
+      <div class="fact-card">
+        <div class="fact-label">Tiefgang</div>
+        <div class="fact-value">2,40&nbsp;m</div>
+        <div class="fact-note">Stabil in Welle und Wind</div>
+      </div>
+
+      <div class="fact-card">
+        <div class="fact-label">Verdrängung</div>
+        <div class="fact-value">31&nbsp;t</div>
+        <div class="fact-note">inkl. 6&nbsp;t Bleiballast</div>
+      </div>
+
+      <div class="fact-card">
+        <div class="fact-label">Segelfläche</div>
+        <div class="fact-value">143&nbsp;m²</div>
+        <div class="fact-note">zzgl. Spi &amp; Besanstagsegel</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KOMFORT -->
+  <section id="komfort">
+    <h2>Leben an Bord</h2>
+    <p class="lead">
+      Unter Deck ist Viking eher schwimmendes Apartment als nacktes Arbeitsschiff:
+      viel Holz, viel Licht und genug Platz, um unterwegs nicht ständig übereinander zu stolpern.
+    </p>
+
+    <div class="two-col">
+      <article class="card">
+        <h3>Salon &amp; Kabinen</h3>
+        <ul>
+          <li>Großer Salon mit Deckshaus-Fenstern – man sieht auch im Sturm noch Himmel.</li>
+          <li>Vier Doppelkabinen; die Achterkabine hat ein eigenes Bad mit Dusche.</li>
+          <li>220-Volt-Netz, Landstrom und ausreichend Batteriekapazität für lange Liegezeiten vor Anker.</li>
+          <li>Große Pantry mit Backofen und Cerankochfeld – Herd statt Campingkocher.</li>
+          <li>Klimaanlage in allen Kabinen, wenn das Wasser mal wärmer ist als der Skipper es mag.</li>
+          <li>Frischwasser-Generator, damit Duschen kein Luxus, sondern Routine bleibt.</li>
+        </ul>
+      </article>
+
+      <aside class="card">
+        <img src="images/IMG_3065.jpeg" alt="Deckshaus und Steuerstand der Viking von innen" />
+      </aside>
+    </div>
+  </section>
+
+  <!-- TECHNIK -->
+  <section id="daten">
+    <h2>Technik &amp; Rigg</h2>
+    <p class="lead">
+      Für die, die gerne wissen wollen, was unter der Farbe steckt:
+      ein Stahlrumpf nach dänischer Seebehörde, Ketch-Rigg und genügend Reserven,
+      um auch bei schlechtem Wetter eher genervt als nervös zu sein.
+    </p>
+
+    <div class="two-col">
+      <article class="card">
+        <h3>Rumpf &amp; Deck</h3>
+        <div class="spec-grid">
+          <div class="spec-label">Rumpf</div>
+          <div>Stahl, metallisiert, Eisklasse&nbsp;C</div>
+
+          <div class="spec-label">Länge ü.a.</div>
+          <div>16,10&nbsp;m</div>
+
+          <div class="spec-label">Breite</div>
+          <div>4,35&nbsp;m</div>
+
+          <div class="spec-label">Tiefgang</div>
+          <div>2,40&nbsp;m</div>
+
+          <div class="spec-label">Verdrängung</div>
+          <div>31&nbsp;t inkl. 6&nbsp;t Bleiballast</div>
+
+          <div class="spec-label">Deck</div>
+          <div>Teak, laufend gepflegt</div>
+
+          <div class="spec-label">Zulassung</div>
+          <div>6 Passagiere + 2 Crew im 24-Stunden-Betrieb</div>
+        </div>
+
+        <h3 style="margin-top:1.1rem;">Antrieb &amp; Systeme</h3>
+        <ul>
+          <li>208&nbsp;PS Caterpillar-Dieselmotor</li>
+          <li>Diesel-Hilfsmotor / Generator für Bordstrom</li>
+          <li>Dieseltank ca. 1000&nbsp;Liter</li>
+          <li>Kräftiges Bugstrahlruder für enge Häfen</li>
+          <li>Frischwasser-Generator für lange Strecken</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>Segel &amp; Rigg</h3>
+        <p>
+          Ketch-Rigg bedeutet zwei Masten, geteilte Segelfläche und viele Möglichkeiten,
+          das Boot den Bedingungen anzupassen – von Leichtwind bis Starkwind.
+        </p>
+        <ul>
+          <li>Gesamtsegelfläche ca. 143&nbsp;m² (ohne Spi)</li>
+          <li>Furlex-Rollgenua mit UV-Schutz, ca. 75&nbsp;m²</li>
+          <li>Großsegel ca. 47&nbsp;m²</li>
+          <li>Besan ca. 21&nbsp;m²</li>
+          <li>Fock ca. 20&nbsp;m²</li>
+          <li>Sturmfock ca. 9&nbsp;m²</li>
+          <li>Spi im Strumpf ca. 220&nbsp;m²</li>
+          <li>Besanstagsegel ca. 44&nbsp;m²</li>
+          <li>Neue Originalsegel liegen bereit, wenn die aktuellen genug gelaufen sind.</li>
+        </ul>
+
+        <h3 style="margin-top:1.1rem;">Navigation &amp; Handling</h3>
+        <ul>
+          <li>Moderne Navigation mit ständig aktualisiertem Radar</li>
+          <li>Instrumente im Deckshaus und im Cockpit</li>
+          <li>Großer Teil der Leinen ins Cockpit geführt – Solo segelbar.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- TRACKING -->
+  <section id="tracking">
+    <h2>Wo wir gerade unterwegs sind</h2>
+    <p class="lead">
+      Hier taucht Vikings letzte Position auf. Manchmal mitten im Hafen, manchmal irgendwo
+      zwischen zwei Kontinenten – je nachdem, wie gut der Zeitplan an Land funktioniert.
+    </p>
+
+    <div class="tracking-wrapper">
+      <iframe
+        src="https://forecast.predictwind.com/tracking/display/SV-Viking/"
+        title="SY Viking – Live Tracking"
+        loading="lazy">
+      </iframe>
+      <div class="tracking-note">
+        <span>Die Karte kommt direkt von PredictWind. Ein wenig Geduld hilft beim Laden.</span>
+        <a href="https://forecast.predictwind.com/tracking/display/SV-Viking/"
+           target="_blank" rel="noopener noreferrer">
+          Tracking in neuem Tab öffnen
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="galerie">
+    <h2>Momente mit Viking</h2>
+    <p class="lead">
+      Ein paar Bilder aus unserem Alltag: vom Kartentisch bis zum Abendlicht am Heck.
+      Der Geruch von Diesel und Kaffee lässt sich leider noch nicht übertragen.
+    </p>
+
+    <div class="gallery-grid">
+      <figure>
+        <img src="images/IMG_1914.jpeg" alt="Steuerstand mit Kartenplotter und Radar" />
+        <figcaption>Navigation bei grauem Wetter</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/IMG_4549.jpeg" alt="Skipper an Deck der Viking unterwegs auf See" />
+        <figcaption>Unterwegs auf See</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/IMG_3065.jpeg" alt="Deckshaus mit Steuerrad und Instrumenten" />
+        <figcaption>Deckshaus &amp; Steuerrad</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/IMG_6409.jpeg" alt="Viking längsseits im Hafen" />
+        <figcaption>Viking im Hafen</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/IMG_3939.jpeg" alt="Heck der Viking mit Solar und Dinghy" />
+        <figcaption>Heck mit Solar &amp; Dinghy</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/B8D1AEC9-3FFE-4067-A83C-DE6797D16072.jpeg" alt="Viking verlässt den Hafen" />
+        <figcaption>Leinen los</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/IMG_2573.jpeg" alt="Schiffsglocke der Viking mit der Aufschrift Nuuk" />
+        <figcaption>Schiffsglocke</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/IMG_3805.jpeg" alt="Sonnenaufgang vom Heck der Viking" />
+        <figcaption>Morgens um sechs</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>SY Viking • Motiva 49 Ketch • Baujahr 1997</span>
+    <span>Logbuch &amp; Notizen von Bord</span>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.querySelector(".nav-toggle");
+  const navLinks = document.querySelector(".nav-links");
+
+  navToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+  });
+
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+    });
+  });
+</script>
+
 </body>
 </html>
