@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>reichel.digital</title>
+  <style>
+    :root {
+      --bg: #f4f1e7;
+      --card-bg: #ffffff;
+      --accent: #0f172a;
+      --accent-soft: rgba(15, 23, 42, 0.08);
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --radius-xl: 24px;
+      --shadow-soft: 0 20px 60px rgba(15, 23, 42, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #e5e7eb 0, #f4f1e7 40%, #e5dfcf 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      color: var(--text-main);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(209, 213, 219, 0.7);
+      padding: 32px 32px 28px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.06), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.04), transparent 55%);
+      opacity: 0.9;
+      z-index: 0;
+    }
+
+    .inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo {
+      width: 160px;
+      max-width: 50%;
+      margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.16);
+      background: var(--accent-soft);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <main class="card" aria-labelledby="title">
+    <div class="inner">
+      <!-- Logo-Datei: jjr-logo.png im selben Ordner wie index.html -->
+      <img src="jjr-logo.png" alt="JJR Logo" class="logo" />
+
+      <h1 id="title">Domain jjreichel.com</h1>
+      <p class="tagline">
+        Joachim&nbsp;J.&nbsp;Reichel
+      </p>
+
+      <div class="pill">
+        <span class="dot"></span>
+        <span>online presence</span>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
