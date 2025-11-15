@@ -77,9 +77,15 @@
       color: var(--dark);
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
     .nav-links {
       display: flex;
-      gap: 1.3rem;
+      gap: 1.1rem;
       align-items: center;
       font-size: 0.95rem;
     }
@@ -104,7 +110,7 @@
     .nav-links a:hover::after { width: 100%; }
 
     .nav-cta {
-      padding: 0.5rem 0.9rem;
+      padding: 0.4rem 0.8rem;
       border-radius: 999px;
       background: var(--primary);
       color: var(--white);
@@ -112,9 +118,36 @@
       box-shadow: 0 8px 18px rgba(179, 19, 36, 0.3);
       border: none;
       cursor: pointer;
+      font-size: 0.9rem;
     }
 
     .nav-cta:hover { filter: brightness(1.05); }
+
+    .lang-switch {
+      display: flex;
+      gap: 0.25rem;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    .lang-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      padding: 0.15rem 0.55rem;
+      background: #ffffff;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+
+    .lang-btn.active {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
 
     .nav-toggle {
       display: none;
@@ -154,14 +187,14 @@
 
     .hero-copy p {
       font-size: 1.02rem;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.1rem;
     }
 
     .hero-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.2rem;
     }
 
     .pill {
@@ -441,6 +474,10 @@
 
       .nav-toggle { display: block; }
 
+      .nav-right {
+        gap: 0.6rem;
+      }
+
       .nav-links {
         position: absolute;
         inset-inline: 0;
@@ -478,6 +515,10 @@
       .gallery-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .lang-switch {
+        display: none; /* auf Mobil ggf. im Menü parken, wenn du magst */
+      }
     }
   </style>
 </head>
@@ -496,16 +537,25 @@
       <span></span><span></span><span></span>
     </button>
 
-    <nav class="nav-links" aria-label="Hauptnavigation">
-      <a href="#viking">Über Viking</a>
-      <a href="#daten">Daten</a>
-      <a href="#komfort">Unter Deck</a>
-      <a href="#tracking">Position</a>
-      <a href="#galerie">Galerie</a>
-      <button class="nav-cta" onclick="document.getElementById('tracking').scrollIntoView({behavior:'smooth'})">
-        Live-Tracking
-      </button>
-    </nav>
+    <div class="nav-right">
+      <nav class="nav-links" aria-label="Hauptnavigation">
+        <a href="#viking" id="nav-about">Über Viking</a>
+        <a href="#daten" id="nav-specs">Daten</a>
+        <a href="#komfort" id="nav-comfort">Unter Deck</a>
+        <a href="#tracking" id="nav-tracking">Position</a>
+        <a href="#galerie" id="nav-gallery">Galerie</a>
+        <button class="nav-cta" id="nav-cta"
+          onclick="document.getElementById('tracking').scrollIntoView({behavior:'smooth'})">
+          Live-Tracking
+        </button>
+      </nav>
+
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="de">DE</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -513,9 +563,9 @@
   <!-- HERO -->
   <section class="hero" id="viking">
     <div class="hero-copy">
-      <div class="pill">Motiva 49 • Stahlketch</div>
-      <h1><span>Viking</span> – unser schwimmendes Zuhause</h1>
-      <p>
+      <div class="pill" id="hero-pill">Motiva 49 • Stahlketch</div>
+      <h1 id="hero-title"><span>Viking</span> – unser schwimmendes Zuhause</h1>
+      <p id="hero-p1">
         Diese Seite ist unser kleines Logbuch für Familie, Freunde
         und alle, die Stahlboote lieben. <strong>Viking</strong> ist eine Motiva 49 Ketch,
         Baujahr 1997, mit der wir zwischen Häfen, Jahreszeiten und Geschichten
@@ -523,28 +573,28 @@
         aber immer mit einem sicheren Gefühl unter den Füßen.
       </p>
 
-      <p>
+      <p id="hero-p2">
         Gebaut aus Stahl nach Eisklasse&nbsp;C, mit Teakdeck und einem Innenraum,
         der eher an eine Wohnung als an ein Fahrzeug erinnert. Viele Seemeilen im Kielwasser
         – und noch genug Träume für neue Routen.
       </p>
 
       <div class="hero-meta">
-        <span class="pill">Stahlrumpf Eisklasse&nbsp;C</span>
-        <span class="pill">4&nbsp;Doppelkabinen</span>
-        <span class="pill">208&nbsp;PS Caterpillar</span>
-        <span class="pill">Einhand segelbar</span>
+        <span class="pill" id="hero-meta-1">Stahlrumpf Eisklasse&nbsp;C</span>
+        <span class="pill" id="hero-meta-2">4&nbsp;Doppelkabinen</span>
+        <span class="pill" id="hero-meta-3">208&nbsp;PS Caterpillar</span>
+        <span class="pill" id="hero-meta-4">Einhand segelbar</span>
       </div>
 
       <div class="hero-actions">
-        <a href="#daten" class="btn btn-primary">Zur Technik</a>
-        <a href="#tracking" class="btn btn-outline">Aktuelle Position ansehen</a>
+        <a href="#daten" class="btn btn-primary" id="hero-btn-specs">Zur Technik</a>
+        <a href="#tracking" class="btn btn-outline" id="hero-btn-tracking">Aktuelle Position ansehen</a>
       </div>
     </div>
 
     <div class="hero-media">
       <img src="images/IMG_2271.jpeg" alt="Viking unter Segeln bei Sonnenuntergang" />
-      <div class="hero-tag">
+      <div class="hero-tag" id="hero-tag">
         <span class="dot"></span>
         <span>Ein weiterer Abend auf See</span>
       </div>
@@ -554,56 +604,68 @@
   <!-- KEY FACTS -->
   <section aria-labelledby="facts-heading">
     <h2 id="facts-heading">Eckdaten der Viking</h2>
-    <p class="lead">
+    <p class="lead" id="facts-lead">
       Wer Zahlen mag, bekommt sie hier. Wer lieber nur die Bilder anschaut,
       darf direkt weiter zur Galerie scrollen.
     </p>
 
     <div class="facts-grid">
       <div class="fact-card">
-        <div class="fact-label">Länge über alles</div>
+        <div class="fact-label" id="fact1-label">Länge über alles</div>
         <div class="fact-value">16,10&nbsp;m</div>
-        <div class="fact-note">Motiva 49 Ketch</div>
+        <div class="fact-note" id="fact1-note">Motiva 49 Ketch</div>
       </div>
 
       <div class="fact-card">
-        <div class="fact-label">Tiefgang</div>
+        <div class="fact-label" id="fact2-label">Tiefgang</div>
         <div class="fact-value">2,40&nbsp;m</div>
-        <div class="fact-note">Stabil in Welle und Wind</div>
+        <div class="fact-note" id="fact2-note">Stabil in Welle und Wind</div>
       </div>
 
       <div class="fact-card">
-        <div class="fact-label">Verdrängung</div>
+        <div class="fact-label" id="fact3-label">Verdrängung</div>
         <div class="fact-value">31&nbsp;t</div>
-        <div class="fact-note">inkl. 6&nbsp;t Bleiballast</div>
+        <div class="fact-note" id="fact3-note">inkl. 6&nbsp;t Bleiballast</div>
       </div>
 
       <div class="fact-card">
-        <div class="fact-label">Segelfläche</div>
+        <div class="fact-label" id="fact4-label">Segelfläche</div>
         <div class="fact-value">143&nbsp;m²</div>
-        <div class="fact-note">zzgl. Spi &amp; Besanstagsegel</div>
+        <div class="fact-note" id="fact4-note">zzgl. Spi &amp; Besanstagsegel</div>
       </div>
     </div>
   </section>
 
   <!-- KOMFORT -->
   <section id="komfort">
-    <h2>Leben an Bord</h2>
-    <p class="lead">
+    <h2 id="comfort-title">Leben an Bord</h2>
+    <p class="lead" id="comfort-lead">
       Unter Deck ist Viking eher schwimmendes Apartment als nacktes Arbeitsschiff:
       viel Holz, viel Licht und genug Platz, um unterwegs nicht ständig übereinander zu stolpern.
     </p>
 
     <div class="two-col">
       <article class="card">
-        <h3>Salon &amp; Kabinen</h3>
+        <h3 id="comfort-h3">Salon &amp; Kabinen</h3>
         <ul>
-          <li>Großer Salon mit Deckshaus-Fenstern – man sieht auch im Sturm noch Himmel.</li>
-          <li>Vier Doppelkabinen; die Achterkabine hat ein eigenes Bad mit Dusche.</li>
-          <li>220-Volt-Netz, Landstrom und ausreichend Batteriekapazität für lange Liegezeiten vor Anker.</li>
-          <li>Große Pantry mit Backofen und Cerankochfeld – Herd statt Campingkocher.</li>
-          <li>Klimaanlage in allen Kabinen, wenn das Wasser mal wärmer ist als der Skipper es mag.</li>
-          <li>Frischwasser-Generator, damit Duschen kein Luxus, sondern Routine bleibt.</li>
+          <li id="comfort-li-1">
+            Großer Salon mit Deckshaus-Fenstern – man sieht auch im Sturm noch Himmel.
+          </li>
+          <li id="comfort-li-2">
+            Vier Doppelkabinen; die Achterkabine hat ein eigenes Bad mit Dusche.
+          </li>
+          <li id="comfort-li-3">
+            220-Volt-Netz, Landstrom und ausreichend Batteriekapazität für lange Liegezeiten vor Anker.
+          </li>
+          <li id="comfort-li-4">
+            Große Pantry mit Backofen und Cerankochfeld – Herd statt Campingkocher.
+          </li>
+          <li id="comfort-li-5">
+            Klimaanlage in allen Kabinen, wenn das Wasser mal wärmer ist als der Skipper es mag.
+          </li>
+          <li id="comfort-li-6">
+            Frischwasser-Generator, damit Duschen kein Luxus, sondern Routine bleibt.
+          </li>
         </ul>
       </article>
 
@@ -615,8 +677,8 @@
 
   <!-- TECHNIK -->
   <section id="daten">
-    <h2>Technik &amp; Rigg</h2>
-    <p class="lead">
+    <h2 id="tech-title">Technik &amp; Rigg</h2>
+    <p class="lead" id="tech-lead">
       Für die, die gerne wissen wollen, was unter der Farbe steckt:
       ein Stahlrumpf nach dänischer Seebehörde, Ketch-Rigg und genügend Reserven,
       um auch bei schlechtem Wetter eher genervt als nervös zu sein.
@@ -624,63 +686,65 @@
 
     <div class="two-col">
       <article class="card">
-        <h3>Rumpf &amp; Deck</h3>
+        <h3 id="hull-h3">Rumpf &amp; Deck</h3>
         <div class="spec-grid">
-          <div class="spec-label">Rumpf</div>
-          <div>Stahl, metallisiert, Eisklasse&nbsp;C</div>
+          <div class="spec-label" id="spec-hull-label">Rumpf</div>
+          <div id="spec-hull-text">Stahl, metallisiert, Eisklasse&nbsp;C</div>
 
-          <div class="spec-label">Länge ü.a.</div>
+          <div class="spec-label" id="spec-length-label">Länge ü.a.</div>
           <div>16,10&nbsp;m</div>
 
-          <div class="spec-label">Breite</div>
+          <div class="spec-label" id="spec-beam-label">Breite</div>
           <div>4,35&nbsp;m</div>
 
-          <div class="spec-label">Tiefgang</div>
+          <div class="spec-label" id="spec-draft-label">Tiefgang</div>
           <div>2,40&nbsp;m</div>
 
-          <div class="spec-label">Verdrängung</div>
-          <div>31&nbsp;t inkl. 6&nbsp;t Bleiballast</div>
+          <div class="spec-label" id="spec-displacement-label">Verdrängung</div>
+          <div id="spec-displacement-text">31&nbsp;t inkl. 6&nbsp;t Bleiballast</div>
 
-          <div class="spec-label">Deck</div>
-          <div>Teak, laufend gepflegt</div>
+          <div class="spec-label" id="spec-deck-label">Deck</div>
+          <div id="spec-deck-text">Teak, laufend gepflegt</div>
 
-          <div class="spec-label">Zulassung</div>
-          <div>6 Passagiere + 2 Crew im 24-Stunden-Betrieb</div>
+          <div class="spec-label" id="spec-approval-label">Zulassung</div>
+          <div id="spec-approval-text">6 Passagiere + 2 Crew im 24-Stunden-Betrieb</div>
         </div>
 
-        <h3 style="margin-top:1.1rem;">Antrieb &amp; Systeme</h3>
+        <h3 style="margin-top:1.1rem;" id="engine-h3">Antrieb &amp; Systeme</h3>
         <ul>
-          <li>208&nbsp;PS Caterpillar-Dieselmotor</li>
-          <li>Diesel-Hilfsmotor / Generator für Bordstrom</li>
-          <li>Dieseltank ca. 1000&nbsp;Liter</li>
-          <li>Kräftiges Bugstrahlruder für enge Häfen</li>
-          <li>Frischwasser-Generator für lange Strecken</li>
+          <li id="engine-li-1">208&nbsp;PS Caterpillar-Dieselmotor</li>
+          <li id="engine-li-2">Diesel-Hilfsmotor / Generator für Bordstrom</li>
+          <li id="engine-li-3">Dieseltank ca. 1000&nbsp;Liter</li>
+          <li id="engine-li-4">Kräftiges Bugstrahlruder für enge Häfen</li>
+          <li id="engine-li-5">Frischwasser-Generator für lange Strecken</li>
         </ul>
       </article>
 
       <article class="card">
-        <h3>Segel &amp; Rigg</h3>
-        <p>
+        <h3 id="rig-h3">Segel &amp; Rigg</h3>
+        <p id="rig-p">
           Ketch-Rigg bedeutet zwei Masten, geteilte Segelfläche und viele Möglichkeiten,
           das Boot den Bedingungen anzupassen – von Leichtwind bis Starkwind.
         </p>
         <ul>
-          <li>Gesamtsegelfläche ca. 143&nbsp;m² (ohne Spi)</li>
-          <li>Furlex-Rollgenua mit UV-Schutz, ca. 75&nbsp;m²</li>
-          <li>Großsegel ca. 47&nbsp;m²</li>
-          <li>Besan ca. 21&nbsp;m²</li>
-          <li>Fock ca. 20&nbsp;m²</li>
-          <li>Sturmfock ca. 9&nbsp;m²</li>
-          <li>Spi im Strumpf ca. 220&nbsp;m²</li>
-          <li>Besanstagsegel ca. 44&nbsp;m²</li>
-          <li>Neue Originalsegel liegen bereit, wenn die aktuellen genug gelaufen sind.</li>
+          <li id="rig-li-1">Gesamtsegelfläche ca. 143&nbsp;m² (ohne Spi)</li>
+          <li id="rig-li-2">Furlex-Rollgenua mit UV-Schutz, ca. 75&nbsp;m²</li>
+          <li id="rig-li-3">Großsegel ca. 47&nbsp;m²</li>
+          <li id="rig-li-4">Besan ca. 21&nbsp;m²</li>
+          <li id="rig-li-5">Fock ca. 20&nbsp;m²</li>
+          <li id="rig-li-6">Sturmfock ca. 9&nbsp;m²</li>
+          <li id="rig-li-7">Spi im Strumpf ca. 220&nbsp;m²</li>
+          <li id="rig-li-8">Besanstagsegel ca. 44&nbsp;m²</li>
+          <li id="rig-li-9">
+            Neue Originalsegel liegen bereit, wenn die aktuellen genug gelaufen sind.
+          </li>
         </ul>
 
-        <h3 style="margin-top:1.1rem;">Navigation &amp; Handling</h3>
+        <h3 style="margin-top:1.1rem;" id="nav-h3">Navigation &amp; Handling</h3>
         <ul>
-          <li>Moderne Navigation mit ständig aktualisiertem Radar</li>
-          <li>Instrumente im Deckshaus und im Cockpit</li>
-          <li>Großer Teil der Leinen ins Cockpit geführt – Solo segelbar.</li>
+          <li id="nav-li-1">Moderne Navigation mit ständig aktualisiertem Radar</li>
+          <li id="nav-li-2">Instrumente im Deckshaus und im Cockpit</li>
+          <li id="nav-li-3">Großer Teil der Leinen ins Cockpit geführt – Solo segelbar.</li>
         </ul>
       </article>
     </div>
@@ -688,8 +752,8 @@
 
   <!-- TRACKING -->
   <section id="tracking">
-    <h2>Wo wir gerade unterwegs sind</h2>
-    <p class="lead">
+    <h2 id="tracking-title">Wo wir gerade unterwegs sind</h2>
+    <p class="lead" id="tracking-lead">
       Hier taucht Vikings letzte Position auf. Manchmal mitten im Hafen, manchmal irgendwo
       zwischen zwei Kontinenten – je nachdem, wie gut der Zeitplan an Land funktioniert.
     </p>
@@ -701,9 +765,11 @@
         loading="lazy">
       </iframe>
       <div class="tracking-note">
-        <span>Die Karte kommt direkt von PredictWind. Ein wenig Geduld hilft beim Laden.</span>
+        <span id="tracking-note-text">
+          Die Karte kommt direkt von PredictWind. Ein wenig Geduld hilft beim Laden.
+        </span>
         <a href="https://forecast.predictwind.com/tracking/display/SV-Viking/"
-           target="_blank" rel="noopener noreferrer">
+           target="_blank" rel="noopener noreferrer" id="tracking-note-link">
           Tracking in neuem Tab öffnen
         </a>
       </div>
@@ -712,8 +778,8 @@
 
   <!-- GALLERY -->
   <section id="galerie">
-    <h2>Momente mit Viking</h2>
-    <p class="lead">
+    <h2 id="gallery-title">Momente mit Viking</h2>
+    <p class="lead" id="gallery-lead">
       Ein paar Bilder aus unserem Alltag: vom Kartentisch bis zum Abendlicht am Heck.
       Der Geruch von Diesel und Kaffee lässt sich leider noch nicht übertragen.
     </p>
@@ -721,42 +787,42 @@
     <div class="gallery-grid">
       <figure>
         <img src="images/IMG_1914.jpeg" alt="Steuerstand mit Kartenplotter und Radar" />
-        <figcaption>Navigation bei grauem Wetter</figcaption>
+        <figcaption id="figcap-1">Navigation bei grauem Wetter</figcaption>
       </figure>
 
       <figure>
         <img src="images/IMG_4549.jpeg" alt="Skipper an Deck der Viking unterwegs auf See" />
-        <figcaption>Unterwegs auf See</figcaption>
+        <figcaption id="figcap-2">Unterwegs auf See</figcaption>
       </figure>
 
       <figure>
         <img src="images/IMG_3065.jpeg" alt="Deckshaus mit Steuerrad und Instrumenten" />
-        <figcaption>Deckshaus &amp; Steuerrad</figcaption>
+        <figcaption id="figcap-3">Deckshaus &amp; Steuerrad</figcaption>
       </figure>
 
       <figure>
         <img src="images/IMG_6409.jpeg" alt="Viking längsseits im Hafen" />
-        <figcaption>Viking im Hafen</figcaption>
+        <figcaption id="figcap-4">Viking im Hafen</figcaption>
       </figure>
 
       <figure>
         <img src="images/IMG_3939.jpeg" alt="Heck der Viking mit Solar und Dinghy" />
-        <figcaption>Heck mit Solar &amp; Dinghy</figcaption>
+        <figcaption id="figcap-5">Heck mit Solar &amp; Dinghy</figcaption>
       </figure>
 
       <figure>
         <img src="images/B8D1AEC9-3FFE-4067-A83C-DE6797D16072.jpeg" alt="Viking verlässt den Hafen" />
-        <figcaption>Leinen los</figcaption>
+        <figcaption id="figcap-6">Leinen los</figcaption>
       </figure>
 
       <figure>
         <img src="images/IMG_2573.jpeg" alt="Schiffsglocke der Viking mit der Aufschrift Nuuk" />
-        <figcaption>Schiffsglocke</figcaption>
+        <figcaption id="figcap-7">Schiffsglocke</figcaption>
       </figure>
 
       <figure>
         <img src="images/IMG_3805.jpeg" alt="Sonnenaufgang vom Heck der Viking" />
-        <figcaption>Morgens um sechs</figcaption>
+        <figcaption id="figcap-8">Morgens um sechs</figcaption>
       </figure>
     </div>
   </section>
@@ -764,12 +830,341 @@
 
 <footer>
   <div class="footer-inner">
-    <span>SY Viking • Motiva 49 Ketch • Baujahr 1997</span>
-    <span>Logbuch &amp; Notizen von Bord</span>
+    <span id="footer-left">SY Viking • Motiva 49 Ketch • Baujahr 1997</span>
+    <span id="footer-right">Logbuch &amp; Notizen von Bord</span>
   </div>
 </footer>
 
 <script>
+  const translations = {
+    de: {
+      'nav-about': 'Über Viking',
+      'nav-specs': 'Daten',
+      'nav-comfort': 'Unter Deck',
+      'nav-tracking': 'Position',
+      'nav-gallery': 'Galerie',
+      'nav-cta': 'Live-Tracking',
+
+      'hero-pill': 'Motiva 49 • Stahlketch',
+      'hero-title': '<span>Viking</span> – unser schwimmendes Zuhause',
+      'hero-p1': 'Diese Seite ist unser kleines Logbuch für Familie, Freunde und alle, die Stahlboote lieben. <strong>Viking</strong> ist eine Motiva 49 Ketch, Baujahr 1997, mit der wir zwischen Häfen, Jahreszeiten und Geschichten hin- und herpendeln. Manchmal gemütlich, manchmal hart am Wind, aber immer mit einem sicheren Gefühl unter den Füßen.',
+      'hero-p2': 'Gebaut aus Stahl nach Eisklasse&nbsp;C, mit Teakdeck und einem Innenraum, der eher an eine Wohnung als an ein Fahrzeug erinnert. Viele Seemeilen im Kielwasser – und noch genug Träume für neue Routen.',
+      'hero-meta-1': 'Stahlrumpf Eisklasse&nbsp;C',
+      'hero-meta-2': '4&nbsp;Doppelkabinen',
+      'hero-meta-3': '208&nbsp;PS Caterpillar',
+      'hero-meta-4': 'Einhand segelbar',
+      'hero-btn-specs': 'Zur Technik',
+      'hero-btn-tracking': 'Aktuelle Position ansehen',
+      'hero-tag': '<span class="dot"></span><span>Ein weiterer Abend auf See</span>',
+
+      'facts-heading': 'Eckdaten der Viking',
+      'facts-lead': 'Wer Zahlen mag, bekommt sie hier. Wer lieber nur die Bilder anschaut, darf direkt weiter zur Galerie scrollen.',
+      'fact1-label': 'Länge über alles',
+      'fact1-note': 'Motiva 49 Ketch',
+      'fact2-label': 'Tiefgang',
+      'fact2-note': 'Stabil in Welle und Wind',
+      'fact3-label': 'Verdrängung',
+      'fact3-note': 'inkl. 6&nbsp;t Bleiballast',
+      'fact4-label': 'Segelfläche',
+      'fact4-note': 'zzgl. Spi &amp; Besanstagsegel',
+
+      'comfort-title': 'Leben an Bord',
+      'comfort-lead': 'Unter Deck ist Viking eher schwimmendes Apartment als nacktes Arbeitsschiff: viel Holz, viel Licht und genug Platz, um unterwegs nicht ständig übereinander zu stolpern.',
+      'comfort-h3': 'Salon &amp; Kabinen',
+      'comfort-li-1': 'Großer Salon mit Deckshaus-Fenstern – man sieht auch im Sturm noch Himmel.',
+      'comfort-li-2': 'Vier Doppelkabinen; die Achterkabine hat ein eigenes Bad mit Dusche.',
+      'comfort-li-3': '220-Volt-Netz, Landstrom und ausreichend Batteriekapazität für lange Liegezeiten vor Anker.',
+      'comfort-li-4': 'Große Pantry mit Backofen und Cerankochfeld – Herd statt Campingkocher.',
+      'comfort-li-5': 'Klimaanlage in allen Kabinen, wenn das Wasser mal wärmer ist als der Skipper es mag.',
+      'comfort-li-6': 'Frischwasser-Generator, damit Duschen kein Luxus, sondern Routine bleibt.',
+
+      'tech-title': 'Technik &amp; Rigg',
+      'tech-lead': 'Für die, die gerne wissen wollen, was unter der Farbe steckt: ein Stahlrumpf nach dänischer Seebehörde, Ketch-Rigg und genügend Reserven, um auch bei schlechtem Wetter eher genervt als nervös zu sein.',
+      'hull-h3': 'Rumpf &amp; Deck',
+      'spec-hull-label': 'Rumpf',
+      'spec-hull-text': 'Stahl, metallisiert, Eisklasse&nbsp;C',
+      'spec-length-label': 'Länge ü.a.',
+      'spec-beam-label': 'Breite',
+      'spec-draft-label': 'Tiefgang',
+      'spec-displacement-label': 'Verdrängung',
+      'spec-displacement-text': '31&nbsp;t inkl. 6&nbsp;t Bleiballast',
+      'spec-deck-label': 'Deck',
+      'spec-deck-text': 'Teak, laufend gepflegt',
+      'spec-approval-label': 'Zulassung',
+      'spec-approval-text': '6 Passagiere + 2 Crew im 24-Stunden-Betrieb',
+
+      'engine-h3': 'Antrieb &amp; Systeme',
+      'engine-li-1': '208&nbsp;PS Caterpillar-Dieselmotor',
+      'engine-li-2': 'Diesel-Hilfsmotor / Generator für Bordstrom',
+      'engine-li-3': 'Dieseltank ca. 1000&nbsp;Liter',
+      'engine-li-4': 'Kräftiges Bugstrahlruder für enge Häfen',
+      'engine-li-5': 'Frischwasser-Generator für lange Strecken',
+
+      'rig-h3': 'Segel &amp; Rigg',
+      'rig-p': 'Ketch-Rigg bedeutet zwei Masten, geteilte Segelfläche und viele Möglichkeiten, das Boot den Bedingungen anzupassen – von Leichtwind bis Starkwind.',
+      'rig-li-1': 'Gesamtsegelfläche ca. 143&nbsp;m² (ohne Spi)',
+      'rig-li-2': 'Furlex-Rollgenua mit UV-Schutz, ca. 75&nbsp;m²',
+      'rig-li-3': 'Großsegel ca. 47&nbsp;m²',
+      'rig-li-4': 'Besan ca. 21&nbsp;m²',
+      'rig-li-5': 'Fock ca. 20&nbsp;m²',
+      'rig-li-6': 'Sturmfock ca. 9&nbsp;m²',
+      'rig-li-7': 'Spi im Strumpf ca. 220&nbsp;m²',
+      'rig-li-8': 'Besanstagsegel ca. 44&nbsp;m²',
+      'rig-li-9': 'Neue Originalsegel liegen bereit, wenn die aktuellen genug gelaufen sind.',
+
+      'nav-h3': 'Navigation &amp; Handling',
+      'nav-li-1': 'Moderne Navigation mit ständig aktualisiertem Radar',
+      'nav-li-2': 'Instrumente im Deckshaus und im Cockpit',
+      'nav-li-3': 'Großer Teil der Leinen ins Cockpit geführt – Solo segelbar.',
+
+      'tracking-title': 'Wo wir gerade unterwegs sind',
+      'tracking-lead': 'Hier taucht Vikings letzte Position auf. Manchmal mitten im Hafen, manchmal irgendwo zwischen zwei Kontinenten – je nachdem, wie gut der Zeitplan an Land funktioniert.',
+      'tracking-note-text': 'Die Karte kommt direkt von PredictWind. Ein wenig Geduld hilft beim Laden.',
+      'tracking-note-link': 'Tracking in neuem Tab öffnen',
+
+      'gallery-title': 'Momente mit Viking',
+      'gallery-lead': 'Ein paar Bilder aus unserem Alltag: vom Kartentisch bis zum Abendlicht am Heck. Der Geruch von Diesel und Kaffee lässt sich leider noch nicht übertragen.',
+      'figcap-1': 'Navigation bei grauem Wetter',
+      'figcap-2': 'Unterwegs auf See',
+      'figcap-3': 'Deckshaus &amp; Steuerrad',
+      'figcap-4': 'Viking im Hafen',
+      'figcap-5': 'Heck mit Solar &amp; Dinghy',
+      'figcap-6': 'Leinen los',
+      'figcap-7': 'Schiffsglocke',
+      'figcap-8': 'Morgens um sechs',
+
+      'footer-left': 'SY Viking • Motiva 49 Ketch • Baujahr 1997',
+      'footer-right': 'Logbuch &amp; Notizen von Bord'
+    },
+
+    en: {
+      'nav-about': 'About Viking',
+      'nav-specs': 'Specs',
+      'nav-comfort': 'Life on board',
+      'nav-tracking': 'Position',
+      'nav-gallery': 'Gallery',
+      'nav-cta': 'Live tracking',
+
+      'hero-pill': 'Motiva 49 • steel ketch',
+      'hero-title': '<span>Viking</span> – our floating home',
+      'hero-p1': 'This page is our little logbook for family, friends and everyone who quietly loves steel boats. <strong>Viking</strong> is a Motiva 49 ketch, launched in 1997, carrying us back and forth between harbours, seasons and stories. Sometimes lazy, sometimes close-hauled, but always with a very solid feeling under our feet.',
+      'hero-p2': 'Built in steel to ice class C, with a teak deck and an interior that feels more like a small apartment than a vehicle. Many miles in her wake already and still plenty of plans for new routes.',
+      'hero-meta-1': 'Steel hull, ice class&nbsp;C',
+      'hero-meta-2': '4 double cabins',
+      'hero-meta-3': '208&nbsp;hp Caterpillar',
+      'hero-meta-4': 'Can be sailed single-handed',
+      'hero-btn-specs': 'See technical details',
+      'hero-btn-tracking': 'View current position',
+      'hero-tag': '<span class="dot"></span><span>Another evening at sea</span>',
+
+      'facts-heading': 'Key figures',
+      'facts-lead': 'If you like numbers, here they are. If you came only for the photos, feel free to scroll straight down to the gallery.',
+      'fact1-label': 'Length overall',
+      'fact1-note': 'Motiva 49 ketch',
+      'fact2-label': 'Draft',
+      'fact2-note': 'Steady in waves and wind',
+      'fact3-label': 'Displacement',
+      'fact3-note': 'incl. 6&nbsp;t lead ballast',
+      'fact4-label': 'Sail area',
+      'fact4-note': 'plus spinnaker &amp; mizzen staysail',
+
+      'comfort-title': 'Life on board',
+      'comfort-lead': 'Below decks, Viking is more floating apartment than bare working boat: lots of wood, lots of light and enough space so people don’t constantly trip over each other on longer passages.',
+      'comfort-h3': 'Saloon &amp; cabins',
+      'comfort-li-1': 'Large saloon with deckhouse windows – you still see sky even when the weather is grumpy.',
+      'comfort-li-2': 'Four double cabins; the aft cabin has its own bathroom with shower.',
+      'comfort-li-3': '220-V system, shore power and enough battery capacity for long periods at anchor.',
+      'comfort-li-4': 'Proper galley with oven and ceramic cooktop – a real stove instead of a camping burner.',
+      'comfort-li-5': 'Air-conditioning in all cabins for the days when the water is warmer than the skipper likes.',
+      'comfort-li-6': 'Watermaker so showers are routine, not a special event.',
+
+      'tech-title': 'Technical details &amp; rig',
+      'tech-lead': 'For anyone wondering what hides beneath the paint: a steel hull built to Danish Maritime Authority standards, ketch rig and enough safety margin to stay relaxed even when the forecast overshoots a little.',
+      'hull-h3': 'Hull &amp; deck',
+      'spec-hull-label': 'Hull',
+      'spec-hull-text': 'Steel, metallized, ice class&nbsp;C',
+      'spec-length-label': 'Length overall',
+      'spec-beam-label': 'Beam',
+      'spec-draft-label': 'Draft',
+      'spec-displacement-label': 'Displacement',
+      'spec-displacement-text': '31&nbsp;t incl. 6&nbsp;t lead ballast',
+      'spec-deck-label': 'Deck',
+      'spec-deck-text': 'Teak, regularly maintained',
+      'spec-approval-label': 'Approval',
+      'spec-approval-text': '6 passengers + 2 crew for 24-hour operation',
+
+      'engine-h3': 'Engine &amp; systems',
+      'engine-li-1': '208&nbsp;hp Caterpillar diesel main engine',
+      'engine-li-2': 'Diesel generator for onboard power',
+      'engine-li-3': 'Diesel tank approx. 1,000&nbsp;litres',
+      'engine-li-4': 'Powerful bow thruster for tight marinas',
+      'engine-li-5': 'Watermaker for long passages',
+
+      'rig-h3': 'Rig &amp; sails',
+      'rig-p': 'Ketch rig means two masts, divided sail area and plenty of options to adapt the boat to the conditions – from light airs to heavy weather.',
+      'rig-li-1': 'Total sail area about 143&nbsp;m² (without spinnaker)',
+      'rig-li-2': 'Furlex roller genoa with UV protection, about 75&nbsp;m²',
+      'rig-li-3': 'Mainsail about 47&nbsp;m²',
+      'rig-li-4': 'Mizzen about 21&nbsp;m²',
+      'rig-li-5': 'Jib about 20&nbsp;m²',
+      'rig-li-6': 'Storm jib about 9&nbsp;m²',
+      'rig-li-7': 'Spinnaker in a sock, about 220&nbsp;m²',
+      'rig-li-8': 'Mizzen staysail about 44&nbsp;m²',
+      'rig-li-9': 'New original sails are in storage, ready for when the current set has done its duty.',
+
+      'nav-h3': 'Navigation &amp; handling',
+      'nav-li-1': 'Modern navigation suite with continuously updated radar',
+      'nav-li-2': 'Instruments in the deckhouse and in the cockpit',
+      'nav-li-3': 'Most lines led aft to the cockpit – can be handled single-handed.',
+
+      'tracking-title': 'Where we are right now',
+      'tracking-lead': 'This map shows Viking’s latest position. Sometimes right in the marina, sometimes somewhere between two coasts – depending on how well the land-based schedule behaves.',
+      'tracking-note-text': 'The map is loaded directly from PredictWind. A little patience helps.',
+      'tracking-note-link': 'Open tracking in a new tab',
+
+      'gallery-title': 'Moments with Viking',
+      'gallery-lead': 'A few snapshots from everyday life aboard: from the chart table to the evening light at the stern. Sadly, the smell of diesel and coffee doesn’t travel over the web yet.',
+      'figcap-1': 'Navigation on a grey day',
+      'figcap-2': 'Underway on deck',
+      'figcap-3': 'Deckhouse &amp; wheel',
+      'figcap-4': 'Viking in port',
+      'figcap-5': 'Stern with solar &amp; dinghy',
+      'figcap-6': 'Casting off',
+      'figcap-7': 'Ship’s bell',
+      'figcap-8': 'Six in the morning',
+
+      'footer-left': 'SY Viking • Motiva 49 ketch • launched 1997',
+      'footer-right': 'Logbook &amp; notes from on board'
+    },
+
+    es: {
+      'nav-about': 'Sobre Viking',
+      'nav-specs': 'Datos',
+      'nav-comfort': 'A bordo',
+      'nav-tracking': 'Posición',
+      'nav-gallery': 'Galería',
+      'nav-cta': 'Ver tracking',
+
+      'hero-pill': 'Motiva 49 • ketch de acero',
+      'hero-title': '<span>Viking</span> – nuestra casa flotante',
+      'hero-p1': 'Esta página es nuestro pequeño cuaderno de bitácora para familia, amistades y toda persona que tiene debilidad por los barcos de acero. <strong>Viking</strong> es una Motiva 49 ketch, botada en 1997, con la que nos movemos entre puertos, estaciones y historias. A veces tranquila, a veces ceñida, pero siempre con una sensación muy sólida bajo los pies.',
+      'hero-p2': 'Construida en acero según la clase de hielo C, con cubierta de teca y un interior que se siente más como un apartamento que como un vehículo. Muchas millas en la estela y aún bastantes rutas pendientes por descubrir.',
+      'hero-meta-1': 'Casco de acero, clase de hielo&nbsp;C',
+      'hero-meta-2': '4 cabinas dobles',
+      'hero-meta-3': '208&nbsp;CV Caterpillar',
+      'hero-meta-4': 'Navegable en solitario',
+      'hero-btn-specs': 'Ver detalles técnicos',
+      'hero-btn-tracking': 'Ver posición actual',
+      'hero-tag': '<span class="dot"></span><span>Otra tarde en el mar</span>',
+
+      'facts-heading': 'Datos clave de Viking',
+      'facts-lead': 'Si te gustan los números, aquí están. Si has venido solo por las fotos, puedes bajar directamente a la galería.',
+      'fact1-label': 'Eslora total',
+      'fact1-note': 'Motiva 49 ketch',
+      'fact2-label': 'Calado',
+      'fact2-note': 'Estable con olas y viento',
+      'fact3-label': 'Desplazamiento',
+      'fact3-note': 'incl. 6&nbsp;t de lastre de plomo',
+      'fact4-label': 'Superficie vélica',
+      'fact4-note': 'más spi y vela de estay de mesana',
+
+      'comfort-title': 'Vida a bordo',
+      'comfort-lead': 'Bajo cubierta, Viking es más un pequeño apartamento flotante que un barco de trabajo desnudo: mucha madera, mucha luz y suficiente espacio para no tropezar con todo el mundo en las travesías largas.',
+      'comfort-h3': 'Salón y cabinas',
+      'comfort-li-1': 'Gran salón con ventanas de caseta – incluso con mal tiempo todavía se ve el cielo.',
+      'comfort-li-2': 'Cuatro cabinas dobles; la cabina de popa tiene su propio baño con ducha.',
+      'comfort-li-3': 'Sistema de 220&nbsp;V, toma de tierra y suficiente capacidad de baterías para fondeos largos.',
+      'comfort-li-4': 'Cocina amplia con horno y placa de cerámica – cocina de verdad, no hornillo de camping.',
+      'comfort-li-5': 'Aire acondicionado en todas las cabinas para los días en que el agua está más caliente que lo que le gusta al capitán.',
+      'comfort-li-6': 'Generador de agua dulce, para que ducharse sea rutina y no lujo.',
+
+      'tech-title': 'Detalles técnicos y aparejo',
+      'tech-lead': 'Para quienes quieren saber qué hay debajo de la pintura: casco de acero construido según las normas de la autoridad marítima danesa, aparejo ketch y suficiente margen de seguridad para seguir tranquilos incluso cuando la previsión se pasa un poco.',
+      'hull-h3': 'Casco y cubierta',
+      'spec-hull-label': 'Casco',
+      'spec-hull-text': 'Acero metalizado, clase de hielo&nbsp;C',
+      'spec-length-label': 'Eslora total',
+      'spec-beam-label': 'Manga',
+      'spec-draft-label': 'Calado',
+      'spec-displacement-label': 'Desplazamiento',
+      'spec-displacement-text': '31&nbsp;t incl. 6&nbsp;t de lastre de plomo',
+      'spec-deck-label': 'Cubierta',
+      'spec-deck-text': 'Teca, mantenida de forma continua',
+      'spec-approval-label': 'Autorización',
+      'spec-approval-text': '6 pasajeros + 2 tripulantes en navegación 24&nbsp;h',
+
+      'engine-h3': 'Motor y sistemas',
+      'engine-li-1': 'Motor principal diésel Caterpillar de 208&nbsp;CV',
+      'engine-li-2': 'Generador diésel para la energía a bordo',
+      'engine-li-3': 'Depósito de diésel de aprox. 1.000&nbsp;litros',
+      'engine-li-4': 'Potente hélice de proa para maniobras en puerto',
+      'engine-li-5': 'Generador de agua dulce para travesías largas',
+
+      'rig-h3': 'Aparejo y velas',
+      'rig-p': 'Un aparejo ketch significa dos palos, superficie vélica repartida y muchas opciones para adaptar el barco a las condiciones – desde poco viento hasta temporal.',
+      'rig-li-1': 'Superficie vélica total aprox. 143&nbsp;m² (sin spi)',
+      'rig-li-2': 'Génova enrollable Furlex con protección UV, aprox. 75&nbsp;m²',
+      'rig-li-3': 'Mayor de aprox. 47&nbsp;m²',
+      'rig-li-4': 'Mesana de aprox. 21&nbsp;m²',
+      'rig-li-5': 'Foque de aprox. 20&nbsp;m²',
+      'rig-li-6': 'Foque de tormenta de aprox. 9&nbsp;m²',
+      'rig-li-7': 'Spi en calcetín, aprox. 220&nbsp;m²',
+      'rig-li-8': 'Vela de estay de mesana aprox. 44&nbsp;m²',
+      'rig-li-9': 'Hay velas originales nuevas almacenadas, listas para cuando el juego actual haya trabajado suficiente.',
+
+      'nav-h3': 'Navegación y maniobra',
+      'nav-li-1': 'Electrónica de navegación moderna con radar actualizado continuamente',
+      'nav-li-2': 'Instrumentación en la caseta y en la bañera',
+      'nav-li-3': 'La mayoría de las drizas y escotas vuelven a la bañera – se puede llevar el barco en solitario.',
+
+      'tracking-title': 'Dónde estamos ahora mismo',
+      'tracking-lead': 'Aquí aparece la última posición de Viking. A veces justo en el puerto, a veces en algún punto entre dos costas – según qué tal se porta la agenda en tierra.',
+      'tracking-note-text': 'El mapa se carga directamente desde PredictWind. Un poco de paciencia ayuda.',
+      'tracking-note-link': 'Abrir el tracking en una nueva pestaña',
+
+      'gallery-title': 'Momentos con Viking',
+      'gallery-lead': 'Algunas imágenes de la vida cotidiana a bordo: desde la mesa de cartas hasta la luz de la tarde en la popa. El olor a gasóleo y café, de momento, no viaja por internet.',
+      'figcap-1': 'Navegación con cielo gris',
+      'figcap-2': 'En ruta en cubierta',
+      'figcap-3': 'Caseta y timón',
+      'figcap-4': 'Viking en puerto',
+      'figcap-5': 'Popa con placas solares y dinghy',
+      'figcap-6': 'Soltando amarras',
+      'figcap-7': 'Campana del barco',
+      'figcap-8': 'Seis de la mañana',
+
+      'footer-left': 'SY Viking • Motiva 49 ketch • año 1997',
+      'footer-right': 'Bitácora y notas desde a bordo'
+    }
+  };
+
+  const ids = Object.keys(translations.de);
+
+  function setLanguage(lang) {
+    const dict = translations[lang] || translations.de;
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && dict[id]) {
+        el.innerHTML = dict[id];
+      }
+    });
+    document.documentElement.lang = lang;
+
+    // Buttons aktiv updaten
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+
+    // Titel/META minimal anpassen
+    const titleMap = {
+      de: 'SY Viking – Logbuch einer Motiva 49 Ketch',
+      en: 'SY Viking – Logbook of a Motiva 49 ketch',
+      es: 'SY Viking – Bitácora de una Motiva 49 ketch'
+    };
+    document.title = titleMap[lang] || titleMap.de;
+  }
+
+  // Mobile Navigation
   const navToggle = document.querySelector(".nav-toggle");
   const navLinks = document.querySelector(".nav-links");
 
@@ -782,6 +1177,16 @@
       navLinks.classList.remove("open");
     });
   });
+
+  // Sprachbuttons
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setLanguage(btn.dataset.lang);
+    });
+  });
+
+  // Initial: Deutsch
+  setLanguage('de');
 </script>
 
 </body>
