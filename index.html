@@ -119,6 +119,8 @@
       border: none;
       cursor: pointer;
       font-size: 0.9rem;
+      display: inline-block;
+      text-decoration: none;
     }
 
     .nav-cta:hover { filter: brightness(1.05); }
@@ -408,6 +410,7 @@
       border-radius: var(--radius-md);
       overflow: hidden;
       position: relative;
+      aspect-ratio: 3/2;
       background: #020617;
       box-shadow: 0 5px 16px rgba(15, 23, 42, 0.12);
     }
@@ -534,21 +537,18 @@
       <div class="brand-title">SY Viking</div>
     </div>
 
-    <button class="nav-toggle" aria-label="Navigation öffnen oder schließen">
+    <button class="nav-toggle" aria-label="Navigation öffnen oder schließen" aria-expanded="false" aria-controls="main-nav">
       <span></span><span></span><span></span>
     </button>
 
     <div class="nav-right">
-      <nav class="nav-links" aria-label="Hauptnavigation">
+      <nav class="nav-links" id="main-nav" aria-label="Hauptnavigation">
         <a href="#viking" id="nav-about">Über Viking</a>
         <a href="#daten" id="nav-specs">Daten</a>
         <a href="#komfort" id="nav-comfort">Unter Deck</a>
         <a href="#tracking" id="nav-tracking">Position</a>
         <a href="#galerie" id="nav-gallery">Galerie</a>
-        <button class="nav-cta" id="nav-cta"
-          onclick="document.getElementById('tracking').scrollIntoView({behavior:'smooth'})">
-          Live-Tracking
-        </button>
+        <a href="#tracking" class="nav-cta" id="nav-cta">Live-Tracking</a>
       </nav>
 
       <div class="lang-switch">
@@ -785,42 +785,42 @@
 
     <div class="gallery-grid">
       <figure>
-        <img src="images/G1.jpeg" alt="Steuerstand mit Kartenplotter und Radar" />
+        <img src="images/G1.jpeg" alt="Steuerstand mit Kartenplotter und Radar" loading="lazy" />
         <figcaption id="figcap-1">Navigation bei grauem Wetter</figcaption>
       </figure>
 
       <figure>
-        <img src="images/G2.jpeg" alt="Skipper an Deck der Viking unterwegs auf See" />
+        <img src="images/G2.jpeg" alt="Skipper an Deck der Viking unterwegs auf See" loading="lazy" />
         <figcaption id="figcap-2">Unterwegs auf See</figcaption>
       </figure>
 
       <figure>
-        <img src="images/G3.jpeg" alt="Deckshaus mit Steuerrad und Instrumenten" />
+        <img src="images/G3.jpeg" alt="Deckshaus mit Steuerrad und Instrumenten" loading="lazy" />
         <figcaption id="figcap-3">Deckshaus &amp; Steuerrad</figcaption>
       </figure>
 
       <figure>
-        <img src="images/G4.jpeg" alt="Viking längsseits im Hafen" />
+        <img src="images/G4.jpeg" alt="Viking längsseits im Hafen" loading="lazy" />
         <figcaption id="figcap-4">Viking im Hafen</figcaption>
       </figure>
 
       <figure>
-        <img src="images/G5.jpeg" alt="Heck der Viking mit Solar und Dinghy" />
+        <img src="images/G5.jpeg" alt="Heck der Viking mit Solar und Dinghy" loading="lazy" />
         <figcaption id="figcap-5">Heck mit Solar &amp; Dinghy</figcaption>
       </figure>
 
       <figure>
-        <img src="images/G6.jpeg" alt="Viking verlässt den Hafen" />
+        <img src="images/G6.jpeg" alt="Viking verlässt den Hafen" loading="lazy" />
         <figcaption id="figcap-6">Leinen los</figcaption>
       </figure>
 
       <figure>
-        <img src="images/G7.jpeg" alt="Schiffsglocke der Viking mit der Aufschrift Viking / Nuuk" />
+        <img src="images/G7.jpeg" alt="Schiffsglocke der Viking mit der Aufschrift Viking / Nuuk" loading="lazy" />
         <figcaption id="figcap-7">Schiffsglocke</figcaption>
       </figure>
 
       <figure>
-        <img src="images/G8.jpeg" alt="Sonnenaufgang vom Heck der Viking" />
+        <img src="images/G8.jpeg" alt="Sonnenaufgang vom Heck der Viking" loading="lazy" />
         <figcaption id="figcap-8">Morgens um sechs</figcaption>
       </figure>
     </div>
@@ -1163,6 +1163,15 @@
       es: 'SY Viking – Bitácora de una Motiva 49 ketch'
     };
     document.title = titleMap[lang] || titleMap.de;
+
+    // Meta-Beschreibung aktualisieren
+    const metaDescMap = {
+      de: 'SY Viking – Motiva 49 Ketch aus Stahl. Persönliches Logbuch, Reiseeindrücke und Live-Position der Yacht.',
+      en: 'SY Viking – Motiva 49 steel ketch. Personal logbook, travel impressions and live position of the yacht.',
+      es: 'SY Viking – ketch de acero Motiva 49. Cuaderno de bitácora personal, impresiones de viaje y posición en vivo del velero.'
+    };
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', metaDescMap[lang] || metaDescMap.de);
   }
 
   // Mobile Navigation
@@ -1170,12 +1179,14 @@
   const navLinks = document.querySelector(".nav-links");
 
   navToggle.addEventListener("click", () => {
-    navLinks.classList.toggle("open");
+    const isOpen = navLinks.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", isOpen);
   });
 
   navLinks.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", () => {
       navLinks.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
     });
   });
 
@@ -1186,8 +1197,10 @@
     });
   });
 
-  // Initial: Deutsch
-  setLanguage('de');
+  // Initial: Browsersprache erkennen, Fallback Deutsch
+  const browserLang = (navigator.language || '').split('-')[0].toLowerCase();
+  const supportedLangs = ['de', 'en', 'es'];
+  setLanguage(supportedLangs.includes(browserLang) ? browserLang : 'de');
 </script>
 
 </body>
